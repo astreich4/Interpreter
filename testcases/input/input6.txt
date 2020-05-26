@@ -1,0 +1,315 @@
+Fun id x
+PushN x
+Return
+FunEnd
+Pop
+Fun curried_Mul x
+Fun test y
+PushN x
+PushN y
+Mul
+Return
+FunEnd
+PushN test
+Return
+FunEnd
+Pop
+Fun fact n
+Fun loop n
+Fun test k
+PushN n_minus_1
+PushI 1
+PushN n
+Sub
+Swap
+Bind
+Pop
+Fun Continuation unit
+PushN loop
+PushN n_minus_1
+Call
+PushN curried_Mul
+PushN n
+Call
+Call
+PushN k
+Swap
+Call
+Return
+FunEnd
+Pop
+PushN n
+PushI 1
+Add
+PushN n
+PushI 0
+Equal
+PushN k
+PushN Continuation
+If
+Swap
+Call
+Return
+FunEnd
+PushN test
+Return
+FunEnd
+PushN loop
+PushN n
+Call
+PushN id
+Call
+Return
+FunEnd
+Pop
+Fun empty x
+Push <error>
+Return
+FunEnd
+Pop
+Fun cons e
+Fun test1 list
+Fun test2 x
+Fun CallRest unit
+PushN list
+PushI 1
+PushN x
+Sub
+Call
+Return
+FunEnd
+Fun retE unit
+PushN e
+Return
+FunEnd
+PushN x
+PushI 0
+Equal
+PushN retE
+PushN CallRest
+If
+Push <unit>
+Call
+Return
+FunEnd
+PushN test2
+Return
+FunEnd
+PushN test1
+Return
+FunEnd
+Pop
+Fun len list
+Fun isLen n
+PushB <false>
+Push <error>
+PushB <true>
+PushN empty
+PushN list
+PushN n
+Call
+Call
+Pop
+Pop
+Pop
+Return
+FunEnd
+Fun acc n
+Fun retN x
+PushN n
+Return
+FunEnd
+PushN isLen
+PushN n
+Call
+PushN retN
+PushN acc
+If
+PushN n
+PushI 1
+Add
+Call
+Return
+FunEnd
+PushN acc
+PushI 0
+Call
+Return
+FunEnd
+Pop
+Fun map Func
+Fun test1 list
+PushN length
+PushN len
+PushN list
+Call
+Swap
+Bind
+Fun aux n
+Fun retEmpty unit
+PushN empty
+Return
+FunEnd
+Fun doRec n
+PushN cons
+PushN Func
+PushN list
+PushN length
+PushN n
+PushI 1
+Add
+Swap
+Sub
+Call
+Call
+Call
+PushN aux
+PushN n
+Call
+Call
+Return
+FunEnd
+PushN n
+PushI 0
+Equal
+PushN retEmpty
+PushN doRec
+If
+PushI 1
+PushN n
+Sub
+Call
+Return
+FunEnd
+PushN aux
+PushN length
+Call
+Return
+FunEnd
+PushN test1
+Return
+FunEnd
+Pop
+Fun fold_right z
+Fun test1 Func
+Fun test2 list
+PushN length
+PushN len
+PushN list
+Call
+Swap
+Bind
+Fun aux n
+Fun retZ x
+PushN z
+Return
+FunEnd
+Fun doRec n
+PushN Func
+PushN list
+PushN length
+PushN n
+PushI 1
+Add
+Swap
+Sub
+Call
+Call
+PushN aux
+PushN n
+Call
+Call
+Return
+FunEnd
+PushN n
+PushI 0
+Equal
+PushN doRec
+PushN retZ
+Swap
+If
+PushI 1
+PushN n
+Sub
+Call
+Return
+FunEnd
+PushN aux
+PushN length
+Call
+Return
+FunEnd
+PushN test2
+Return
+FunEnd
+PushN test1
+Return
+FunEnd
+Pop
+PushN cons
+PushN fact
+PushI 3
+Call
+Call
+PushN empty
+Call
+PushN cons
+PushI 5
+Call
+Swap
+Call
+PushN cons
+PushI 4
+Call
+Swap
+Call
+PushN cons
+PushI 3
+Call
+Swap
+Call
+PushN cons
+PushI 2
+Call
+Swap
+Call
+PushN list
+Bind
+Pop
+Fun square x
+PushN x
+PushN x
+Mul
+Return
+FunEnd
+Pop
+PushN map
+PushN square
+Call
+PushN list
+Call
+PushN mapped
+Bind
+Pop
+Fun sum x
+Fun test y
+PushN x
+PushN y
+Add
+Return
+FunEnd
+PushN test
+Return
+FunEnd
+Pop
+PushN fold_right
+PushI 100
+Call
+PushN sum
+Call
+PushN mapped
+Call
+PushN fact
+PushI 7
+Call
+Quit

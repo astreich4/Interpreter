@@ -1,0 +1,24 @@
+Fun test1 arg
+PushI 100
+Return
+FunEnd
+Fun test arg
+PushI 1
+PushN arg
+Sub
+PushI 2
+PushN arg
+Equal
+PushN test
+PushN test1
+If
+Swap
+Call
+PushN arg
+Mul
+Return
+FunEnd
+PushN test
+PushI 6
+Call
+Quit
